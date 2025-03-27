@@ -1,0 +1,72 @@
+main {
+    position: relative;
+    padding: 15px 20px;
+}
+
+.main-container {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 12px;
+}
+
+.cardlist-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 16px;
+}
+
+.cardlist-icon {
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-basis: 175px;
+    width: 175px;
+    height: 175px;
+}
+
+.card-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px;
+}
+
+.cardinfo-pic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 55%;
+}
+
+.cardinfo-pic p {
+    margin: 0 auto;
+}
+
+.cardinfo-pic img {
+    display: block  ;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.cardinfo-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    flex-basis: 40%;
+    padding: 4px;
+    text-align: center;
+}
+
+ul {
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+}
+
+#card-type-icon, #card-rarity-icon, #card-skill-group-icon {
+    display: inline;
+    width: 100px;
+    height: 100px;
+}

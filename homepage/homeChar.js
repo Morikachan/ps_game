@@ -4,8 +4,9 @@ const changeChar = document.querySelector("#changeCardConfirm");
 const close = document.querySelector("#changeCardClose");
 const cardContainer = document.querySelector(".cardContainer");
 
-let homeCardId = document.querySelector(".game-container").dataset.cardid;
-console.log(homeCardId);
+let homeCardId = Number(
+  document.querySelector(".game-container").dataset.cardid
+);
 
 function openCardList() {
   fetch("../core/getCardList.php", {
@@ -21,7 +22,7 @@ function openCardList() {
         function makeCardsGrid() {
           let cardCells = "";
           for (i = 0; i < cardList.length; i++) {
-            homeCardId === i
+            homeCardId - 1 === i
               ? (cardCells += `<div class="card-icon checked" data-cardId="${cardList[i].card_id}" style="background-image: url('../src/cards/card_icons/card_icon_${cardList[i].card_id}.png')"></div>`)
               : (cardCells += `<div class="card-icon" data-cardId="${cardList[i].card_id}" style="background-image: url('../src/cards/card_icons/card_icon_${cardList[i].card_id}.png')"></div>`);
           }
@@ -84,7 +85,6 @@ close.onclick = function () {
 };
 
 window.onclick = function (event) {
-  console.log("hi");
   if (event.target == modal) {
     modal.style.display = "none";
   }

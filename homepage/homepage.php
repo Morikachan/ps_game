@@ -9,7 +9,6 @@ if (empty($_SESSION['user'])) {
 
 function selectUserHomeCharacter($pdo, $user_id)
 {
-    // $sql = "SELECT * FROM user_home WHERE user_id = :user_id JOIN card_info ON user_home.home_card_id = card_info.card_id";
     $sql = "SELECT home_card_id FROM user_home WHERE user_id = :user_id";
     try {
         $stmt = $pdo->prepare($sql);
@@ -110,8 +109,8 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="./homepage-style.css">
     <script src="../core/bgmPlay.js" defer></script>
-    <script src="./homeChar.js" defer></script>
     <script src="./changeName.js" defer></script>
+    <script src="./homeChar.js" defer></script>
     <script src="https://kit.fontawesome.com/f8fcf0ba93.js" crossorigin="anonymous"></script>
     <title>ホームページ</title>
 </head>

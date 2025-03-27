@@ -67,11 +67,12 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="./shop-style.css">
+    <link rel="stylesheet" href="./cardlist-style.css">
     <script src="../core/bgmPlay.js" defer></script>
     <script src="../core/pageBack.js" defer></script>
+    <script src="./card_details.js" defer></script>
     <script src="https://kit.fontawesome.com/f8fcf0ba93.js" crossorigin="anonymous"></script>
-    <title>ショップページ</title>
+    <title>カード情報ページ</title>
 </head>
 
 <body>
@@ -123,18 +124,21 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
         </header>
         <div class="top-buttons">
             <h1 class="purple-pageTitle left">
-                ショップ
+                カード情報
             </h1>
             <button type="button" class="gray-button right active" onclick="location.href='../homepage/homepage.php'">
                 <i class="fa-solid fa-house" style="color: #000000;"></i>
             </button>
         </div>
-        <main class="container-main-small">
-            <div class="main-select-bar">
-
+        <main class="container-main-small card-info">
+            <div class="cardinfo-pic" id="cardinfo-pic-container">
+                <div><img src="" alt="カード画像"></div>
             </div>
-            <div class="main-container">
+            <div class="cardinfo-details" id="cardinfo-details-container">
+                <h2>カード情報</h2>
+                <ul>
 
+                </ul>
             </div>
         </main>
         <footer class="game-page-footer">
@@ -145,15 +149,6 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
                 <i class="fa-solid fa-volume-high" style="color: #000000;"></i>
             </button>
         </footer>
-    </div>
-    <div id="modalPurchase" class="modal">
-        <div class="modal-content">
-            <div class="name-field">
-                <input type="text" id="homeUsername" name="homeUsername" value=<?php echo $_SESSION['user']['username'] ?>>
-                <button type="button" class="modalNameBtn" id="changeNameConfirm"><i class="fa-duotone fa-solid fa-circle-check" style="color: #FFA3B1;"></i></button>
-                <button type="button" class="modalNameBtn" id="changeNameClose"><i class="fa-duotone fa-solid fa-circle-xmark" style="color:rgb(134, 134, 134);"></i></button>
-            </div>
-        </div>
     </div>
     <audio autoplay loop id="bgm-play">
         <source src="../bgm/sinnesloschen-beam-117362.mp3" type="audio/mpeg">

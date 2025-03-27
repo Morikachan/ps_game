@@ -6,7 +6,23 @@ session_start();
 
 function selectUserCards($pdo, $user_id)
 {
-    $sql = "SELECT * FROM card_inventory WHERE user_id = :user_id";
+    // $sql = "SELECT * FROM card_inventory WHERE user_id = :user_id";
+    $sql = "SELECT * FROM card_inventory
+    -- カード全体の情報
+    LEFT JOIN card_info 
+        ON card_inventory.card_id = card_info.card_id
+    -- スキール
+    LEFT JOIN m_card_skill 
+        ON m_card_skill.card_skill_id = card_info.card_skill_id 
+    -- カード全体の情報
+    LEFT JOIN m_card_type 
+        ON m_card_type.card_type_id = card_info.card_type_id 
+    LEFT JOIN m_rarity 
+        ON m_rarity.rarity_id = card_info.rarity_id 
+    -- TODO カードレベル
+    -- LEFT JOIN m_card_type 
+    --     ON m_card_skill.card_skill_id = card_info.card_skill_id 
+        WHERE card_inventory.user_id = :user_id;";
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':user_id', $user_id);

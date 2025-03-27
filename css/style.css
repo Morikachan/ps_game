@@ -242,6 +242,15 @@ input:focus {
 	display: none;
 }
 
+.container-main-small {
+  position: relative;
+  display: block;
+  background-color: rgb(255, 255, 255);
+  width: 1200px;
+  height: 600px;
+  margin: auto;
+}
+
 .main-select-bar {
   background-color: rgba(0, 0, 0, 0.15);
   width: 250px;
@@ -500,4 +509,22 @@ footer {
 @keyframes animateShow {
   from {opacity: 0}
   to {opacity: 1}
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 16px;
+  left:-100px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: #e7e7e7;
+  border: 1px solid #cacaca;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  background-color: #272727;
 }

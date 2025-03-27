@@ -39,15 +39,19 @@ nav a:hover {
   height: 425px;
   overflow-y: scroll;
   justify-content: space-between;
+  overflow-y: hidden;
 }
 
 .cardContainer {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-auto-rows: 130px;
-    gap: 15px;
+    gap: 12px;
     /* border-bottom: solid 2px rgb(136, 136, 136, 0.8); */
     height: 100%;
+    overflow-y: auto;
+    padding-top: 5px;
+    padding-right: 12px;
 }
 
 .card-icon {
@@ -58,34 +62,10 @@ nav a:hover {
   height: 130px;
 }
 
-.card-icon .scrollbar {
-  height: 300px;
-  width: 50%;
-  overflow: auto;
-  padding: 0 10px;
-}
-
-.scrollbar::-webkit-scrollbar {
-  width: 16px;
-}
-
-.scrollbar::-webkit-scrollbar-track {
-  border-radius: 8px;
-  background-color: #e7e7e7;
-  border: 1px solid #cacaca;
-}
-
-.scrollbar::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  border: 3px solid transparent;
-  background-clip: content-box;
-  background-color: #272727;
-}
-
 .card-icon.checked::after {
   content: "";
   position: absolute;
-  top: -10px;
+  top: -5px;
   right: -10px;
   width: 45px;
   height: 45px;
