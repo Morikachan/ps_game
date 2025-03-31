@@ -67,12 +67,12 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="./ranking-style.css">
+    <link rel="stylesheet" href="./gachalist.css">
     <script src="../core/bgmPlay.js" defer></script>
     <script src="../core/pageBack.js" defer></script>
-    <script src="./createRanking.js" defer></script>
+    <script src="./showGachaResult.js" defer></script>
     <script src="https://kit.fontawesome.com/f8fcf0ba93.js" crossorigin="anonymous"></script>
-    <title>ランキングページ</title>
+    <title>ガチャページ</title>
 </head>
 
 <body>
@@ -124,24 +124,18 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
         </header>
         <div class="top-buttons">
             <h1 class="purple-pageTitle left">
-                ランキング
+                ガチャ
             </h1>
             <button type="button" class="gray-button right active" onclick="location.href='../homepage/homepage.php'">
                 <i class="fa-solid fa-house" style="color: #000000;"></i>
             </button>
         </div>
-        <main class="container-main-small">
-            <div class="main-select-bar" id="container-ranking-sidebar">
-                <div class="ranking-element active">
-                    <p>
-                        レベルランキング
-                    </p>
-                </div>
+        <main class="container-main-small gacha-result-main">
+            <div id="image-container">
+                <img id="current-image" src="" alt="カード画像" />
             </div>
-            <div class="main-container">
-                <div class="users-container scrollbar" id="container-ranking">
-                </div>
-            </div>
+            <div id="gacha-result" class="gacha-result" style="display: none;"></div>
+            <button type="button" class="gacha-result-button" id="gacha-result-ok">OK</button>
         </main>
         <footer class="game-page-footer">
             <button type="button" id="pageBackButton" class="gray-button left">

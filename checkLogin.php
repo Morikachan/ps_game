@@ -18,10 +18,25 @@ function selectUserData($pdo, $email)
     }
 }
 
+function updateLastLogin($pdo, $user_id, $loginDate)
+{
+    $sql = "UPDATE users_info SET last_login = :last_login WHERE user_id = :user_id;";
+    try {
+        $smtp = $pdo->prepare($sql);
+        $smtp->bindParam(':user_id', $user_id);
+        $smtp->bindParam(':last_login', $loginDate);
+        return $smtp->execute();
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $pdo = Database::getInstance()->getPDO();
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $loginDate = date("Y-m-d H:i:s");
     $user = selectUserData($pdo, $email);
     if (!$user) {
         $_SESSION['error'] = '入力されたメールアドレスが見つかりませんでした。</br>もう一度やり直してください。';
@@ -33,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     } else {
         $_SESSION['user'] = $user;
+        updateLastLogin($pdo, $user['user_id'], $loginDate);
         header("Location: ./homepage/homepage.php");
         exit;
     }

@@ -462,7 +462,7 @@ input:focus {
   margin: 3px;
 }
 
-.modalBtn {
+.modalBtn, .gacha-result-button {
   margin: 21px 0;
   background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
   border: 0;
@@ -486,11 +486,11 @@ input:focus {
   white-space: nowrap;
 }
   
-.modalBtn:not([disabled]):focus {
+.modalBtn:not([disabled]):focus, .gacha-result-button:not([disabled]):focus {
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
 }
   
-.modalBtn:not([disabled]):hover {
+.modalBtn:not([disabled]):hover, .gacha-result-button:not([disabled]):hover {
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
 }
 

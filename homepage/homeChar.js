@@ -17,14 +17,23 @@ function openCardList() {
       if (responseData.status === true) {
         modal.style.display = "block";
         const cardList = responseData.cardList;
+        const uniqueCards = [];
+        const seenCardIds = new Set();
+
+        cardList.forEach((card) => {
+          if (!seenCardIds.has(card.card_id)) {
+            uniqueCards.push(card);
+            seenCardIds.add(card.card_id);
+          }
+        });
 
         // Creates cards cells
         function makeCardsGrid() {
           let cardCells = "";
-          for (i = 0; i < cardList.length; i++) {
-            homeCardId - 1 === i
-              ? (cardCells += `<div class="card-icon checked" data-cardId="${cardList[i].card_id}" style="background-image: url('../src/cards/card_icons/card_icon_${cardList[i].card_id}.png')"></div>`)
-              : (cardCells += `<div class="card-icon" data-cardId="${cardList[i].card_id}" style="background-image: url('../src/cards/card_icons/card_icon_${cardList[i].card_id}.png')"></div>`);
+          for (i = 0; i < uniqueCards.length; i++) {
+            homeCardId === uniqueCards[i].card_id
+              ? (cardCells += `<div class="card-icon checked" data-cardId="${uniqueCards[i].card_id}" style="background-image: url('../src/cards/card_icons/card_icon_${uniqueCards[i].card_id}.png')"></div>`)
+              : (cardCells += `<div class="card-icon" data-cardId="${uniqueCards[i].card_id}" style="background-image: url('../src/cards/card_icons/card_icon_${uniqueCards[i].card_id}.png')"></div>`);
           }
           return cardCells;
         }
@@ -82,10 +91,14 @@ changeChar.addEventListener("click", () => updateHomeChar(homeCardId));
 
 close.onclick = function () {
   modal.style.display = "none";
+  homeCardId = Number(document.querySelector(".game-container").dataset.cardid);
 };
 
 window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
+    homeCardId = Number(
+      document.querySelector(".game-container").dataset.cardid
+    );
   }
 };

@@ -37,9 +37,3 @@ changeName.addEventListener("click", updateUsername);
 changeNameClose.onclick = function () {
   modalName.style.display = "none";
 };
-
-window.onclick = function (event) {
-  if (event.target == modalName) {
-    modalName.style.display = "none";
-  }
-};

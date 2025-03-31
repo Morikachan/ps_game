@@ -70,6 +70,8 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
     <link rel="stylesheet" href="./gachalist.css">
     <script src="../core/bgmPlay.js" defer></script>
     <script src="../core/pageBack.js" defer></script>
+    <script src="./createGachaMenu.js" defer></script>
+    <script src="./makePull.js" defer></script>
     <script src="https://kit.fontawesome.com/f8fcf0ba93.js" crossorigin="anonymous"></script>
     <title>ガチャページ</title>
 </head>
@@ -130,11 +132,60 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
             </button>
         </div>
         <main class="container-main-small">
-            <div class="main-select-bar">
+            <div class="main-select-bar" id="container-gacha-sidebar">
 
             </div>
-            <div class="main-container">
-
+            <div class="main-container" id="container-gacha">
+                <div class="info-buttons">
+                    <button type="button" id="gacha-card-list">カードリスト</button>
+                    <button type="button" id="gacha-history">ガチャ履歴</button>
+                </div>
+                <div class="gacha-left-container">
+                    <div class="left-bar">
+                        <!-- end date -->
+                        <p id="gacha-end-date">期限なし</p>
+                    </div>
+                    <div class="left-bar">
+                        <!-- paid gems -->
+                        <div class="left-bar-gem">
+                            <p><img src="../src/gem_img.png" alt="ジェム" class="left-bar-icon"></p>
+                            <p>有償</p>
+                        </div>
+                        <p class="left-bar-gem-amount" id="paid_gems">
+                            <?php echo $_SESSION['paid_gems'] ?>
+                            <a href="../shop/shop.php" id="gem_shop" style="color: #FFA3B1; width: 24px; height: 24px; margin-left: 4px;">
+                                <i class="fa-duotone fa-solid fa-circle-plus" style="font-size: 24px;"></i>
+                            </a>
+                        </p>
+                    </div>
+                    <div class="left-bar">
+                        <!-- free gems -->
+                        <div class="left-bar-gem">
+                            <p><img src="../src/gem_img.png" alt="ジェム" class="left-bar-icon"></p>
+                            <p>無償</p>
+                        </div>
+                        <p class="left-bar-gem-amount" id="free_gems">
+                            <?php echo $_SESSION['free_gems'] ?>
+                        </p>
+                    </div>
+                </div>
+                <div class="gacha-buttons-container">
+                    <button type="button" class="pull-button" id="pull-one" data-pullCount="1" data-pull-amount="250">
+                        <p class="button-pull-text">１回</p>
+                        <div class="pull-gem-amount" id="pull-gem-amount-one">
+                            <img src="../src/gem_img.png" alt="ジェム" class="pull-gem-icon">
+                            <p id="pull-amount-one">250</p>
+                        </div>
+                    </button>
+                    <button type="button" class="pull-button" id="pull-ten" data-pullCount="10" data-pull-amount="2500">
+                        <p class="pull-guaranty-info bottom">SR1枚は確定</p>
+                        <p class="button-pull-text">１０回</p>
+                        <div class="pull-gem-amount" id="pull-gem-amount-ten">
+                            <img src="../src/gem_img.png" alt="ジェム" class="pull-gem-icon">
+                            <p id="pull-amount-ten">2500</p>
+                        </div>
+                    </button>
+                </div>
             </div>
         </main>
         <footer class="game-page-footer">
@@ -146,12 +197,12 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
             </button>
         </footer>
     </div>
-    <div id="modalPurchase" class="modal">
-        <div class="modal-content">
-            <div class="name-field">
-                <input type="text" id="homeUsername" name="homeUsername" value=<?php echo $_SESSION['user']['username'] ?>>
-                <button type="button" class="modalNameBtn" id="changeNameConfirm"><i class="fa-duotone fa-solid fa-circle-check" style="color: #FFA3B1;"></i></button>
-                <button type="button" class="modalNameBtn" id="changeNameClose"><i class="fa-duotone fa-solid fa-circle-xmark" style="color:rgb(134, 134, 134);"></i></button>
+    <div id="modalError" class="modal">
+        <div class="modal-content modal-gacha-error">
+            <p id="errorText"></p>
+            <div class="modal-buttons">
+                <button type="button" class="modalBtn Gray" id="gachaErrorClose">キャンセル</button>
+                <button type="button" class="modalBtn" id="gachaToShop" onclick="location.href='../shop/shop.php'">ショップへ</button>
             </div>
         </div>
     </div>
