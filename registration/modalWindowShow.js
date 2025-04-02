@@ -1,16 +1,15 @@
 const body = document.querySelector("body");
-const modal = document.querySelector("#modal");
+const modal = document.querySelector("#modalRegistration");
 const button = document.querySelector("#createBtn");
 
 button.addEventListener("click", insertConfirm);
-
-const data = {
-  email: localStorage.getItem("email"),
-  password: localStorage.getItem("password"),
-  username: localStorage.getItem("username"),
-};
-
 function insertConfirm() {
+  const data = {
+    email: document.querySelector("#email").value,
+    password: document.querySelector("#password").value,
+    username: document.querySelector("#username").value,
+  };
+
   fetch("createUser.php", {
     method: "POST",
     headers: {

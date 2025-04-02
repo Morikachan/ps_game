@@ -66,9 +66,28 @@ function selectUsername($pdo, $user_id)
     }
 }
 
+function updateLastLogin($pdo, $user_id, $loginDate)
+{
+    $sql = "UPDATE users_info SET last_login = :last_login WHERE user_id = :user_id;";
+    try {
+        $smtp = $pdo->prepare($sql);
+        $smtp->bindParam(':user_id', $user_id);
+        $smtp->bindParam(':last_login', $loginDate);
+        return $smtp->execute();
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+}
+
 
 $pdo = Database::getInstance()->getPDO();
 $user_id = $_SESSION['user']['user_id'];
+
+date_default_timezone_set('Asia/Tokyo');
+$loginDate = date("Y-m-d H:i:s");
+updateLastLogin($pdo, $user_id, $loginDate);
+
 $homeCharacter_id = selectUserHomeCharacter($pdo, $user_id)['home_card_id'];
 $levelsTable = selectLevelRequirements($pdo);
 

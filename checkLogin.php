@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $pdo = Database::getInstance()->getPDO();
     $email = $_POST['email'];
     $password = $_POST['password'];
+    date_default_timezone_set('Asia/Tokyo');
     $loginDate = date("Y-m-d H:i:s");
     $user = selectUserData($pdo, $email);
     if (!$user) {

@@ -72,6 +72,7 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
     <script src="../core/pageBack.js" defer></script>
     <script src="./createGachaMenu.js" defer></script>
     <script src="./makePull.js" defer></script>
+    <script src="./gachaMenuButtons.js" defer></script>
     <script src="https://kit.fontawesome.com/f8fcf0ba93.js" crossorigin="anonymous"></script>
     <title>ガチャページ</title>
 </head>
@@ -203,6 +204,14 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
             <div class="modal-buttons">
                 <button type="button" class="modalBtn Gray" id="gachaErrorClose">キャンセル</button>
                 <button type="button" class="modalBtn" id="gachaToShop" onclick="location.href='../shop/shop.php'">ショップへ</button>
+            </div>
+        </div>
+    </div>
+    <div id="modalMenuGacha" class="modal">
+        <div class="modal-content modal-gacha-list">
+            <ul id="menuList" class="gacha-modal-list scrollbar"></ul>
+            <div class="modal-buttons gacha-modal-buttons">
+                <button type="button" class="modalBtn Gray" id="gachaMenuClose">閉じる</button>
             </div>
         </div>
     </div>

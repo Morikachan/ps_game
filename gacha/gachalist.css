@@ -241,3 +241,89 @@
   .modalBtn.Gray:not([disabled]):hover {
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(180, 180, 180, 0.5), .125rem .125rem 1rem rgba(209, 209, 209, 0.5);
   }
+
+  /* gacha list and gacha history modal */
+.modal-gacha-list {
+    position: relative;
+    top: 20%;
+    width: 750px;
+    height: 600px;
+}
+  .gacha-modal-list {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+
+  .gacha-modal-list li {
+    display: flex;
+    width: 100%;
+  }
+  .gacha-modal-list .list-header {
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .gacha-modal-list .gacha-card-info {
+    display: flex;
+    flex-basis: 90%;
+    margin-left: 12px;
+    justify-content: space-between;
+  }
+
+  .gacha-modal-list .gacha-card-info p {
+    text-align: center;
+    align-self: center;
+  }
+
+  .list-header .gacha-card-info  {
+    flex-basis: 80%;
+    align-self: center;
+    justify-items: flex-end;
+    margin-left: 0;
+  }
+
+  #card-name {
+    flex-basis: 50%;
+  }
+
+  .gacha-modal-list img {
+    width: 75px;
+    height: 75px;
+  }
+
+  .cardlist-icon {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .gacha-modal-buttons {
+    justify-content: center;
+  }
+
+ .gacha-history-element{
+    justify-content: space-between;
+ }
+
+ .gacha-banner {
+    width: 100%;
+    height: 140px;
+    flex-basis: 55%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+ }
+ .gacha-info {
+    flex-basis: 40%;
+    align-self: center;
+    line-height: 2em;
+    letter-spacing: 2px;
+ }

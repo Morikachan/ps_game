@@ -111,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
     $username = $_POST['username'];
 
+    date_default_timezone_set('Asia/Tokyo');
     $formattedRegistrationDate = date("Y-m-d H:i:s");
 
     // $_SESSION['error'] =  array();
@@ -123,10 +124,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $result = createUser($pdo, $email, $password, $username, $formattedRegistrationDate);
         if ($result) {
-            // create user inventory for 5 cards R from id 1 to 5
+            // create user inventory for 5 cards R from id 1 to 6
             // add to home char with 1-st id
             $newUserData = selectUserData($pdo, $email);
-            for ($i = 1; $i <= 5; $i++) {
+            for ($i = 1; $i <= 6; $i++) {
                 addInventoryCard($pdo, $newUserData['user_id'], $i, $formattedRegistrationDate);
             }
             addHomeChar($pdo, $newUserData['user_id'], 1);

@@ -32,6 +32,22 @@ function updateUserPaidGems($pdo, $user_id, $paid_gems)
     }
 }
 
+function insertUserGachaHistory($pdo, $gacha_id, $user_id, $gacha_day, $pullCount)
+{
+    $sql = "INSERT INTO gacha_history (gacha_id, user_id, gacha_day, pull) VALUES (:gacha_id, :user_id, :gacha_day, :pull)";
+    try {
+        $smtp = $pdo->prepare($sql);
+        $smtp->bindParam(':gacha_id', $gacha_id);
+        $smtp->bindParam(':user_id', $user_id);
+        $smtp->bindParam(':gacha_day', $gacha_day);
+        $smtp->bindParam(':pull', $pullCount);
+        return $smtp->execute();
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+}
+
 function selectGacha($pdo, $gacha_id)
 {
     $sql = "SELECT * FROM gacha_info WHERE gacha_id = :gacha_id;";
@@ -145,6 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $paid_gem_amount = $_POST['paid_gem_amount'];
     $pullNum = $_POST['pull_num'];
     $user_id = $_SESSION['user']['user_id'];
+    date_default_timezone_set('Asia/Tokyo');
     $pullDate = date("Y-m-d H:i:s");
     $selectGachaRes = selectGacha($pdo, $gacha_id);
     if ($selectGachaRes) {
@@ -162,6 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 updateUserFreeGems($pdo, $user_id, $newFreeGem);
             }
+            insertUserGachaHistory($pdo, $gacha_id, $user_id, $pullDate, $pullNum);
         }
         echo $gachaResult ? json_encode(['status' => true, 'gachaResult' => $gachaResult]) : json_encode(['status' => false]);
     }

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./registration-style.css">
     <script src="../core/bgmPlay.js" defer></script>
     <script src="./validation.js" defer></script>
+    <script src="./modalWindowShow.js" defer></script>
     <title>新規</title>
 </head>
 
@@ -49,7 +50,7 @@
                     <span class="inputErrorMess" id="passwordCheckError"></span>
                     <button type="button" method="post" class="regist-button" id="createBtn" disabled>アカウント作成</button>
                 </form>
-                <div id="modal" class="modal" style="display: none">
+                <div id="modalRegistration" class="modal" style="display: none">
                     <div class="modal-content">
                         <h4>登録完了</h4>
                         <p>登録できました</p>
@@ -64,6 +65,5 @@
         <source src="../bgm/pixel-dreams-259187.mp3" type="audio/mpeg">
     </audio>
 </body>
-<script src="./modalWindowShow.js" defer></script>
 
 </html>

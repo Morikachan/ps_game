@@ -57,6 +57,7 @@ $userItems = selectUserItemInventory($pdo, $_SESSION['user']['user_id']);
 $_SESSION['free_gems'] = $userItems[array_search(1, array_column($userItems, 'item_id'))]['amount'];
 $_SESSION['paid_gems'] = $userItems[array_search(2, array_column($userItems, 'item_id'))]['amount'];
 $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_id'))]['amount'];
+$_SESSION['tickets'] = $userItems[array_search(4, array_column($userItems, 'item_id'))]['amount'];
 
 ?>
 
@@ -70,6 +71,7 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
     <link rel="stylesheet" href="./shop-style.css">
     <script src="../core/bgmPlay.js" defer></script>
     <script src="../core/pageBack.js" defer></script>
+    <script src="./createShopMenu.js" defer></script>
     <script src="https://kit.fontawesome.com/f8fcf0ba93.js" crossorigin="anonymous"></script>
     <title>ショップページ</title>
 </head>
@@ -130,11 +132,21 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
             </button>
         </div>
         <main class="container-main-small">
-            <div class="main-select-bar">
-
+            <div class="main-select-bar" id="container-ranking-sidebar">
+                <div class="shop-bar-element active" id="paid-gem-bar" data-shopId="1">
+                    <p>
+                        有償ジェムパック
+                    </p>
+                </div>
+                <div class="shop-bar-element" id="set-pack-bar" data-shopId="2">
+                    <p>
+                        セットパック
+                    </p>
+                </div>
             </div>
             <div class="main-container">
-
+                <div class="shop-container scrollbar" id="shop-container">
+                </div>
             </div>
         </main>
         <footer class="game-page-footer">
@@ -148,11 +160,9 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
     </div>
     <div id="modalPurchase" class="modal">
         <div class="modal-content">
-            <div class="name-field">
-                <input type="text" id="homeUsername" name="homeUsername" value=<?php echo $_SESSION['user']['username'] ?>>
-                <button type="button" class="modalNameBtn" id="changeNameConfirm"><i class="fa-duotone fa-solid fa-circle-check" style="color: #FFA3B1;"></i></button>
-                <button type="button" class="modalNameBtn" id="changeNameClose"><i class="fa-duotone fa-solid fa-circle-xmark" style="color:rgb(134, 134, 134);"></i></button>
-            </div>
+            <h4 id="modal-shop-title">購入完了</h4>
+            <p id="modalPurchaseText"></p>
+            <button type="button" class="modalBtn Gray" id="closeModalPurchase">閉じる</button>
         </div>
     </div>
     <audio autoplay loop id="bgm-play">
