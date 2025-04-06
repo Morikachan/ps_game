@@ -7,6 +7,21 @@ if (empty($_SESSION['user'])) {
     header("Location: ../index.php");
 }
 
+function selectUserData($pdo, $user_id)
+{
+    $sql = "SELECT * FROM users_info WHERE user_id = :user_id";
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+}
+
 function selectUserHomeCharacter($pdo, $user_id)
 {
     $sql = "SELECT home_card_id FROM user_home WHERE user_id = :user_id";
@@ -83,6 +98,7 @@ function updateLastLogin($pdo, $user_id, $loginDate)
 
 $pdo = Database::getInstance()->getPDO();
 $user_id = $_SESSION['user']['user_id'];
+$_SESSION['user'] = selectUserData($pdo, $user_id);
 
 date_default_timezone_set('Asia/Tokyo');
 $loginDate = date("Y-m-d H:i:s");

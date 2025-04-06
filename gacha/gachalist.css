@@ -272,7 +272,7 @@
 
   .gacha-modal-list .gacha-card-info {
     display: flex;
-    flex-basis: 90%;
+    flex-basis: 83%;
     margin-left: 12px;
     justify-content: space-between;
   }
