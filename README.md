@@ -12,8 +12,9 @@
 ```
 $ git clone https://github.com/Morikachan/ps_game.git
 ```
-
-データベースのダウンロードについて。。。（設定中）
+### データベース設定
+このプロジェクトはXAMPPのPHP開発環境を使用していますので、先に[XAMPP](https://www.apachefriends.org/jp/download.html)をダウンロードします。
+ダウンロードができてから、「Apache」と「MySQL」を立ち上げて、MySQLのAdminで「ps_database」というデータベースを作成し、リポジトリからの[データベースファイル](https://github.com/Morikachan/ps_game/tree/main/database)をインポートしてから、データベースの設定が終了になります。
 
 ## 使い方
 ダウンロードと設定が出来ましたら、登録ページにユーザーを登録し、ログインしてから、作成が完成したら、ホームページに行きます。ここからゲームシステムが始まっています。
