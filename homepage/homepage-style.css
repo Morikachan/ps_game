@@ -17,7 +17,7 @@ nav {
 nav > a {
   display: block;
   min-width: 120px;
-  height: 60px;
+  min-height: 60px;
   background-color: #D9D0D0;
   padding: 20px;
   border-radius: 12px;
@@ -32,6 +32,15 @@ nav > a {
 nav a:hover {
   background-color: #FFA3B1;
   transition: all 250ms ease-in-out;
+}
+
+
+nav a:last-child {
+  background-color: #FFA3B1;
+}
+
+nav a:last-child:hover {
+  background-color: #ff7388;
 }
 
 #modalHomeChar .modal-content {

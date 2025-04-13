@@ -222,7 +222,7 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
                 <a href="../ranking/ranking.php">ランキング</a>
                 <a href="../cardlist/cardlist.php">カード一覧</a>
                 <a href="../gacha/gachalist-page.php">ガチャ</a>
-                <!-- <a href="../">ゲーム</a> -->
+                <a href="../gamemode/one_pc/card_selection.php">ゲーム</a>
             </nav>
         </main>
     </div>
