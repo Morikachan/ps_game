@@ -35,11 +35,10 @@ function selectUserData($pdo, $email)
 
 function createUser($pdo, $email, $password, $username, $registrationDate)
 {
-    $sql = "INSERT INTO users_info (email, password, username, registration_date, user_exp, last_login) 
-    VALUES (:email, :password, :username, :registration_date, :user_exp, :last_login)";
+    $sql = "INSERT INTO users_info (email, password, username, registration_date, user_exp) 
+    VALUES (:email, :password, :username, :registration_date, :user_exp)";
     try {
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-        $lastLoginDefault = '00-00-00 00:00:00';
         $userExpDefault = 0;
 
         $smtp = $pdo->prepare($sql);
@@ -47,7 +46,6 @@ function createUser($pdo, $email, $password, $username, $registrationDate)
         $smtp->bindParam(':password', $passwordHash);
         $smtp->bindParam(':username', $username);
         $smtp->bindParam(':registration_date', $registrationDate);
-        $smtp->bindParam(':last_login', $lastLoginDefault);
         $smtp->bindParam(':user_exp', $userExpDefault);
         return $smtp->execute();
     } catch (PDOException $e) {

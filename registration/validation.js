@@ -69,6 +69,7 @@ for (let registrationKey in registrationInfo) {
 
 password.addEventListener("change", () => {
   validationPassword(passwordInfo);
+  validationPassword(passwordCheckInfo);
 });
 
 passwordCheck.addEventListener("change", () => {
@@ -81,6 +82,11 @@ const validationPassword = (elementInfo) => {
   const regexBigLetter = /(?=.*[A-Z])/;
   const regexSmallLetter = /(?=.*[a-z])/;
   const regexNumber = /(?=.*[0-9])/;
+
+  console.log(elementInfo.element.value);
+  console.log(!regex.test(elementInfo.element.value));
+  console.log(!regexLength.test(elementInfo.element.value));
+  console.log(!regexBigLetter.test(elementInfo.element.value));
 
   if (elementInfo.element.value == "") {
     userFieldsInput[elementInfo.name] = null;
@@ -96,7 +102,7 @@ const validationPassword = (elementInfo) => {
     submitBtn.disabled = true;
   } else if (
     !regexLength.test(elementInfo.element.value) &&
-    !elementInfo.name == "passwordCheck"
+    elementInfo.name != "passwordCheck"
   ) {
     userFieldsInput[elementInfo.name] = null;
     elementInfo.elementError.style.display = "inline-block";
@@ -105,7 +111,7 @@ const validationPassword = (elementInfo) => {
     submitBtn.disabled = true;
   } else if (
     !regexBigLetter.test(elementInfo.element.value) &&
-    !elementInfo.name == "passwordCheck"
+    elementInfo.name != "passwordCheck"
   ) {
     userFieldsInput[elementInfo.name] = null;
     elementInfo.elementError.style.display = "inline-block";
@@ -114,7 +120,7 @@ const validationPassword = (elementInfo) => {
     submitBtn.disabled = true;
   } else if (
     !regexSmallLetter.test(elementInfo.element.value) &&
-    !elementInfo.name == "passwordCheck"
+    elementInfo.name != "passwordCheck"
   ) {
     userFieldsInput[elementInfo.name] = null;
     elementInfo.elementError.style.display = "inline-block";
@@ -123,17 +129,14 @@ const validationPassword = (elementInfo) => {
     submitBtn.disabled = true;
   } else if (
     !regexNumber.test(elementInfo.element.value) &&
-    !elementInfo.name == "passwordCheck"
+    elementInfo.name != "passwordCheck"
   ) {
     userFieldsInput[elementInfo.name] = null;
     elementInfo.elementError.style.display = "inline-block";
     elementInfo.elementError.textContent = "数字を使用してください";
     elementInfo.element.style.backgroundColor = "#FF8989";
     submitBtn.disabled = true;
-  } else if (
-    elementInfo.name == "passwordCheck" &&
-    elementInfo.element.value !== password.value
-  ) {
+  } else if (elementInfo.element.value !== password.value) {
     userFieldsInput[elementInfo.name] = null;
     elementInfo.elementError.style.display = "inline-block";
     elementInfo.elementError.textContent =
@@ -170,21 +173,17 @@ const checkLocalStorage = () => {
   userFieldsInput.password = localStorage.getItem("password");
   passwordCheck.value = localStorage.getItem("passwordCheck");
   userFieldsInput.passwordCheck = localStorage.getItem("passwordCheck");
+  validationPassword(passwordInfo);
+  validationPassword(passwordCheckInfo);
   checkFields();
 };
 
 const checkFields = () => {
-  for (let key in userFieldsInput) {
-    if (
-      userFieldsInput[key] === null ||
-      userFieldsInput[key] === "null" ||
-      userFieldsInput[key] === ""
-    ) {
-      submitBtn.disabled = true;
-    } else {
-      submitBtn.disabled = false;
-    }
-  }
+  const isAnyFieldEmpty = Object.values(userFieldsInput).some(
+    (value) => value === null || value === "null" || value === ""
+  );
+
+  button.disabled = isAnyFieldEmpty;
 };
 
 window.addEventListener("load", () => {

@@ -32,37 +32,44 @@ async function insertUsers() {
 }
 
 function formatLastLogin(datetime) {
+  console.log(datetime);
   const now = new Date();
   const past = new Date(datetime);
-  const diff = Math.floor((now - past) / 1000);
+  const diff = Math.floor(Math.abs(now - past) / 1000);
   let lastLoginFormattedStr = "";
-
-  switch (true) {
-    case diff < 60:
-      lastLoginFormattedStr = "最終ログイン: 1分以内";
-      break;
-    case diff < 3600:
-      lastLoginFormattedStr = `最終ログイン: ${Math.floor(diff / 60)}分前`;
-      break;
-    case diff < 86400:
-      lastLoginFormattedStr = `最終ログイン: ${Math.floor(diff / 3600)}時間前`;
-      break;
-    case diff < 2592000:
-      lastLoginFormattedStr = `最終ログイン: ${Math.floor(diff / 86400)}日前`;
-      break;
-    case diff < 3153600:
-      lastLoginFormattedStr = `最終ログイン: ${Math.floor(
-        diff / 2592000
-      )}か月前`;
-      break;
-    case diff >= 31536000:
-      lastLoginFormattedStr = `最終ログイン: ${Math.floor(
-        diff / 31536000
-      )}年前`;
-      break;
-    default:
-      lastLoginFormattedStr = "最終ログイン: なし";
-      break;
+  if (datetime == null) {
+    lastLoginFormattedStr = "最終ログイン: なし";
+  } else {
+    console.log(diff);
+    switch (true) {
+      case diff < 60:
+        lastLoginFormattedStr = "最終ログイン: 1分以内";
+        break;
+      case diff < 3600:
+        lastLoginFormattedStr = `最終ログイン: ${Math.floor(diff / 60)}分前`;
+        break;
+      case diff < 86400:
+        lastLoginFormattedStr = `最終ログイン: ${Math.floor(
+          diff / 3600
+        )}時間前`;
+        break;
+      case diff < 2592000:
+        lastLoginFormattedStr = `最終ログイン: ${Math.floor(diff / 86400)}日前`;
+        break;
+      case diff < 31536000:
+        lastLoginFormattedStr = `最終ログイン: ${Math.floor(
+          diff / 2592000
+        )}か月前`;
+        break;
+      case diff >= 31536000:
+        lastLoginFormattedStr = `最終ログイン: ${Math.floor(
+          diff / 31536000
+        )}年前`;
+        break;
+      default:
+        lastLoginFormattedStr = "最終ログイン: なし";
+        break;
+    }
   }
   return lastLoginFormattedStr;
 }

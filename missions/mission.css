@@ -1,0 +1,81 @@
+.container-main-small {
+    display: flex;
+}
+
+
+.main-select-bar {
+    flex-basis: 265px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mission-element {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.mission-element.active::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-image: url('../src/select_frame.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.main-container {
+    flex-basis: 950px;
+    display: flex;
+    padding: 20px;
+}
+
+.users-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    padding-right: 12px;
+}
+
+.user-element {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border: 2px solid #D967FF;
+    border-radius: 8px;
+    font-size: 24px;
+}
+
+.user-element img {
+    width: 150px;
+    height: 150px;
+}
+
+#mission-daily {
+    width: 100%;
+    height: 100px;
+    background-image: url('../src/daily-mission.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#container-mission {
+    text-align: center;
+    margin: auto;
+}
