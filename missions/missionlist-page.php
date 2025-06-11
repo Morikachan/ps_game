@@ -70,7 +70,7 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
     <link rel="stylesheet" href="./mission.css">
     <script src="../core/bgmPlay.js" defer></script>
     <script src="../core/pageBack.js" defer></script>
-    <script src="./createRanking.js" defer></script>
+    <script src="./createMissions.js" defer></script>
     <script src="https://kit.fontawesome.com/f8fcf0ba93.js" crossorigin="anonymous"></script>
     <title>ミッション</title>
 </head>
@@ -132,15 +132,10 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
         </div>
         <main class="container-main-small">
             <div class="main-select-bar" id="container-mission-sidebar">
-                <div class="mission-element active" id="mission-daily">
-
-                </div>
+                <div class="mission-bar-element active" id="mission-daily" data-missionType="1"></div>
             </div>
             <div class="main-container">
-                <div class="users-container scrollbar" id="container-missions">
-                    <div id="container-mission">
-                        現在、ミッションが見つけられません🎭
-                    </div>
+                <div class="missions-container scrollbar" id="missions-container">
                 </div>
             </div>
         </main>

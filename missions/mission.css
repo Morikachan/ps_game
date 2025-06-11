@@ -2,7 +2,7 @@
     display: flex;
 }
 
-
+/* ミッション選択 */
 .main-select-bar {
     flex-basis: 265px;
     display: flex;
@@ -11,7 +11,7 @@
     justify-content: center;
 }
 
-.mission-element {
+.mission-bar-element {
     position: relative;
     display: flex;
     width: 100%;
@@ -24,7 +24,7 @@
     font-size: 22px;
 }
 
-.mission-element.active::after {
+.mission-bar-element.active::after {
     content: "";
     position: absolute;
     top: 0;
@@ -36,13 +36,14 @@
     background-repeat: no-repeat;
 }
 
+/* ミッション */
 .main-container {
     flex-basis: 950px;
     display: flex;
     padding: 20px;
 }
 
-.users-container {
+.missions-container {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -52,7 +53,7 @@
     padding-right: 12px;
 }
 
-.user-element {
+.mission-element {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -62,9 +63,32 @@
     font-size: 24px;
 }
 
-.user-element img {
-    width: 150px;
-    height: 150px;
+.mission-element img {
+    width: 100px;
+    height: 90px;
+}
+
+.mission-button {
+    font-size: 20px;
+    border: none;
+    background-color: #D9D0D0;
+    color: #949494;
+    font-weight: bold;
+    min-width: 120px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.mission-button.clear {
+    background-color: #FF8989;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+.mission-button.received {
+    background-color: none;
+    border: none;
 }
 
 #mission-daily {
@@ -73,9 +97,4 @@
     background-image: url('../src/daily-mission.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-}
-
-#container-mission {
-    text-align: center;
-    margin: auto;
 }
