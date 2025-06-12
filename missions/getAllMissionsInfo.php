@@ -18,7 +18,7 @@ function selectAllMissionsInfo($pdo, $user_id, $today)
                 h.is_complete,
                 h.is_received,
                 h.add_date,
-                FALSE AS is_group_mission,
+                0 AS is_group_mission,
                 NULL AS m_mission_daily_rewards_id,
                 NULL AS mission_daily_text,
                 NULL AS group_reward_amount,
@@ -28,8 +28,8 @@ function selectAllMissionsInfo($pdo, $user_id, $today)
                 ON m.mission_id IN (d.mission_id1, d.mission_id2, d.mission_id3)
             LEFT JOIN mission_history h
                 ON h.mission_id = m.mission_id
-                AND h.user_id = :user_id
-                AND DATE(h.add_date) = DATE(:today)
+                AND h.user_id = :user_id1
+                AND DATE_FORMAT(h.add_date, '%Y-%m-%d') = :today1
 
             UNION
 
@@ -45,27 +45,32 @@ function selectAllMissionsInfo($pdo, $user_id, $today)
                 NULL AS is_complete,
                 NULL AS is_received,
                 NULL AS add_date,
-                TRUE AS is_group_mission,
+                1 AS is_group_mission,
                 d.m_mission_daily_rewards_id,
                 d.mission_daily_text,
                 d.reward_amount AS group_reward_amount,
-
                 CASE
-                    WHEN h1.is_complete = TRUE AND h2.is_complete = TRUE AND h3.is_complete = TRUE THEN TRUE
-                    ELSE FALSE
+                    WHEN h1.is_complete = 1 AND h2.is_complete = 1 AND h3.is_complete = 1 THEN 1
+                    ELSE 0
                 END AS all_cleared
-
             FROM m_mission_daily_rewards d
             LEFT JOIN mission_history h1
-                ON h1.mission_id = d.mission_id1 AND h1.user_id = :user_id AND DATE_FORMAT(h1.add_date,'%y-%m-%d') = :today
+                ON h1.mission_id = d.mission_id1 AND h1.user_id = :user_id2 AND DATE_FORMAT(h1.add_date, '%Y-%m-%d') = :today2
             LEFT JOIN mission_history h2
-                ON h2.mission_id = d.mission_id2 AND h2.user_id = :user_id AND DATE_FORMAT(h2.add_date,'%y-%m-%d') = :today
+                ON h2.mission_id = d.mission_id2 AND h2.user_id = :user_id3 AND DATE_FORMAT(h2.add_date, '%Y-%m-%d') = :today3
             LEFT JOIN mission_history h3
-                ON h3.mission_id = d.mission_id3 AND h3.user_id = :user_id AND DATE_FORMAT(h3.add_date,'%y-%m-%d') = :today;";
+                ON h3.mission_id = d.mission_id3 AND h3.user_id = :user_id4 AND DATE_FORMAT(h3.add_date, '%Y-%m-%d') = :today4;
+            ";
     try {
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':user_id', $user_id);
-        $stmt->bindParam(':today', $today);
+        $stmt->bindParam(':user_id1', $user_id);
+        $stmt->bindParam(':today1', $today);
+        $stmt->bindParam(':user_id2', $user_id);
+        $stmt->bindParam(':today2', $today);
+        $stmt->bindParam(':user_id3', $user_id);
+        $stmt->bindParam(':today3', $today);
+        $stmt->bindParam(':user_id4', $user_id);
+        $stmt->bindParam(':today4', $today);
         $stmt->execute();
         $missionsList = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $missionsList;
