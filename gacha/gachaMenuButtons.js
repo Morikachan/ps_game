@@ -50,19 +50,22 @@ function createModalCardList(cardList) {
 }
 
 function createModalGachaHistory(gachaHistory) {
-  console.log(gachaHistory);
   let gachaHistoryElements = "";
   modalMenuGacha.style.display = "block";
   modalMenuGachaCloseBtn.addEventListener("click", () => {
     modalMenuGacha.style.display = "none";
   });
-  gachaHistory.forEach((gacha) => {
-    gachaHistoryElements += `<li class="gacha-history-element">
+  gachaHistory.length == 0
+    ? (gachaHistoryElements = `<div id="gacha-none">
+              <p>現時にガチャ履歴がございません💦
+          </div>`)
+    : gachaHistory.forEach((gacha) => {
+        gachaHistoryElements += `<li class="gacha-history-element">
           <div class="gacha-banner" data-gachaId="${
             gacha.gacha_id
           }" style="background-image: url('../src/banners/gacha_banner_small_${
-      gacha.gacha_id
-    }.jpg')"></div>
+          gacha.gacha_id
+        }.jpg')"></div>
           <div class="gacha-info">
               <p id="gacha-name">ガチャ名：${gacha.gacha_name}</p>
               <p id="gacha-pull-count">ガチャ回数：${gacha.pull} 回</p>
@@ -71,7 +74,7 @@ function createModalGachaHistory(gachaHistory) {
               }</p>
           </div>
       </li>`;
-  });
+      });
   modalMenuList.innerHTML = gachaHistoryElements;
 }
 
@@ -104,7 +107,7 @@ async function getGachaHistory() {
     const userGachaHistory = responseData.userGachaHistory;
     return userGachaHistory;
   } else {
-    throw new Error("失敗発生");
+    return [];
   }
 }
 

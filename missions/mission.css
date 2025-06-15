@@ -65,7 +65,14 @@
 
 .mission-element img {
     width: 100px;
-    height: 90px;
+    height: 85px;
+    margin-right: 15px;
+}
+
+.mission-element-reward {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .mission-button {
@@ -87,9 +94,17 @@
 }
 
 .mission-button.received {
-    background-color: none;
+    background-color: inherit;
     border: none;
+    padding: 0;
+    cursor: auto;
 }
+
+.mission-button.received img {
+    width: 90px;
+    height: 80px;
+}
+
 
 #mission-daily {
     width: 100%;

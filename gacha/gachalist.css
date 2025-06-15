@@ -327,3 +327,11 @@
     line-height: 2em;
     letter-spacing: 2px;
  }
+
+ #gacha-none {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 20px;
+ }
