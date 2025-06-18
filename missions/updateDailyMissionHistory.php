@@ -8,12 +8,13 @@ function updateMissionHistoryComplete($pdo, $user_id, $mission_id, $is_complete,
 {
     $sql = "INSERT INTO mission_history (user_id, mission_id, is_complete, add_date, add_num)
         SELECT :user_id, :mission_id, :is_complete, :add_date, :add_num
-        FROM DUAL
         WHERE NOT EXISTS (
             SELECT 1 FROM mission_history
             WHERE user_id = :user_id1
             AND mission_id = :mission_id1
-            AND DATE_FORMAT(is_complete, '%Y-%m-%d') = DATE_FORMAT(:today, '%Y-%m-%d')
+            AND DATE_FORMAT(add_date, '%Y-%m-%d') = DATE_FORMAT(:today, '%Y-%m-%d')
+            AND is_complete = 1 
+            complete_num = current_num
         )";
     try {
         $add_def = 1;
@@ -82,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = $_SESSION['user']['user_id'];
     if ($is_complete == 0) {
         $updateRes = updateMissionHistoryComplete($pdo, $user_id, $mission_id, 1, $todayFull);
-    } {
+    } else {
         $updateRes = (!$is_daily) ?
             updateMissionHistoryReceived($pdo, $user_id, $mission_id, null, 1, $todayFull) :
             updateMissionHistoryReceived($pdo, $user_id, null, $mission_id, 1, $todayFull);

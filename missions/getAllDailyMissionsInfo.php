@@ -34,8 +34,8 @@ function selectAllMissionsInfo($pdo, $user_id, $today)
                 AND DATE_FORMAT(h.add_date, '%Y-%m-%d') = :today1
             LEFT JOIN mission_history_received hr
                 ON hr.mission_id = m.mission_id
-                AND hr.user_id = :user_id1
-                AND DATE_FORMAT(hr.received_date, '%Y-%m-%d') = :today1
+                AND hr.user_id = :user_id9
+                AND DATE_FORMAT(hr.received_date, '%Y-%m-%d') = :today9
             WHERE m.exec_type = 1
             UNION
 
@@ -101,6 +101,8 @@ function selectAllMissionsInfo($pdo, $user_id, $today)
         $stmt->bindParam(':today7', $today);
         $stmt->bindParam(':user_id8', $user_id);
         $stmt->bindParam(':today8', $today);
+        $stmt->bindParam(':user_id9', $user_id);
+        $stmt->bindParam(':today9', $today);
         $stmt->execute();
         $missionsList = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $missionsList;

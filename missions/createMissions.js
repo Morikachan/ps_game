@@ -2,7 +2,7 @@ const missionsContainer = document.querySelector("#missions-container");
 
 let activeMissionType = 1;
 
-// setCompleteLogin(1, 0, 0);
+setCompleteLogin(1, 0, 0);
 
 async function allMissionInfo() {
   const response = await fetch("./getAllDailyMissionsInfo.php", {
