@@ -1,4 +1,6 @@
 const gachaResMain = document.querySelector(".container-main-small");
+const gachaStart = document.getElementById("gacha-start");
+const gachaVideo = document.getElementById("gacha-video");
 
 const imgElement = document.getElementById("current-image");
 const imageContainer = document.getElementById("image-container");
@@ -16,7 +18,10 @@ function cardShowcase() {
       if (responseData.status === true) {
         const userCardList = responseData.cardList;
         gachaResMain.style.position = "static";
-        showOneAndAllCard();
+        gachaVideo.onended = () => {
+          gachaStart.classList.add("hidden");
+          showOneAndAllCard();
+        };
       } else {
         alert("失敗発生");
       }
@@ -58,9 +63,19 @@ function showOneAndAllCard() {
         resultContainer.style.display = "grid";
 
         result.forEach((card) => {
+          const wrapper = document.createElement("div");
+          wrapper.classList.add("gacha-card-wrapper");
+
           const img = document.createElement("img");
           img.src = `../src/cards/card_icons/card_icon_${card.card_id}.png`;
-          resultContainer.appendChild(img);
+          img.alt = "Card";
+
+          if (card.is_new) {
+            wrapper.classList.add("new");
+          }
+
+          wrapper.appendChild(img);
+          resultContainer.appendChild(wrapper);
         });
       }
     });

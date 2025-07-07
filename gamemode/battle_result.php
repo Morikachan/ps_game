@@ -7,6 +7,21 @@ if (empty($_SESSION['user'])) {
     header("Location: ../index.php");
 }
 
+function selectUserData($pdo, $user_id)
+{
+    $sql = "SELECT * FROM users_info WHERE user_id = :user_id";
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+}
+
 function selectLevelRequirements($pdo)
 {
     $sql = "SELECT * FROM m_user_lvl";
@@ -40,7 +55,7 @@ $pdo = Database::getInstance()->getPDO();
 $user_id = $_SESSION['user']['user_id'];
 $levelsTable = selectLevelRequirements($pdo);
 
-$userExp = $_SESSION['user']['user_exp'];
+$userExp = selectUserData($pdo, $_SESSION['user']['user_id'])['user_exp'];
 $userLevel = 1;
 $nextLevelExp = null;
 
@@ -53,6 +68,10 @@ foreach ($levelsTable as $key => $level) {
 }
 
 $userItems = selectUserItemInventory($pdo, $_SESSION['user']['user_id']);
+
+$_SESSION['userLvl'] = $userLevel;
+$_SESSION['nextLvlValue'] = $nextLevelExp;
+$_SESSION['nextLvlValuePercent'] = floor($userExp * 100 / $nextLevelExp);
 
 $_SESSION['free_gems'] = $userItems[array_search(1, array_column($userItems, 'item_id'))]['amount'];
 $_SESSION['paid_gems'] = $userItems[array_search(2, array_column($userItems, 'item_id'))]['amount'];
@@ -67,22 +86,15 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="./gachalist.css">
+    <link rel="stylesheet" href="./gamemode-play.css">
     <script src="../core/bgmPlay.js" defer></script>
     <script src="../core/pageBack.js" defer></script>
-    <script src="./showGachaResult.js" defer></script>
+    <script src="./results.js" defer></script>
     <script src="https://kit.fontawesome.com/f8fcf0ba93.js" crossorigin="anonymous"></script>
-    <title>ガチャページ</title>
+    <title>結果ページ</title>
 </head>
 
 <body>
-    <!-- Gacha Start Animation Video -->
-    <div id="gacha-start" class="gacha-start">
-        <video id="gacha-video" autoplay muted>
-            <source src="../src/gacha-start.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-        </video>
-    </div>
     <div class="game-container">
         <header>
             <div class="header-left">
@@ -98,7 +110,7 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
                             <span>レベル</span>
                         </p>
                         <p class="user_exp">
-                            <?php echo $_SESSION['user']['user_exp'] ?>/<?php echo $_SESSION['nextLvlValue'] ?>
+                            <?php echo $userExp ?>/<?php echo $nextLevelExp ?>
                         </p>
                     </div>
                     <div class="experience" style="width:<?php echo $_SESSION['nextLvlValuePercent'] ?>%"></div>
@@ -131,18 +143,30 @@ $_SESSION['coins'] = $userItems[array_search(3, array_column($userItems, 'item_i
         </header>
         <div class="top-buttons">
             <h1 class="purple-pageTitle left">
-                ガチャ
+                ゲーム結果
             </h1>
             <button type="button" class="gray-button right active" onclick="location.href='../homepage/homepage.php'">
                 <i class="fa-solid fa-house" style="color: #000000;"></i>
             </button>
         </div>
-        <main class="container-main-small gacha-result-main">
-            <div id="image-container">
-                <img id="current-image" src="" alt="カード画像" />
-            </div>
-            <div id="gacha-result" class="gacha-result" style="display: none;"></div>
-            <button type="button" class="gacha-result-button" id="gacha-result-ok">OK</button>
+        <main class="container-result-small">
+            <h2 class="result-title">バトル結果</h2>
+            <p><span id="winner-name"></span>が勝ちました！</p>
+            <h3>アイテム</h3>
+            <ul class="result-items">
+                <li>
+                    <img src="../src/gem_img.png" alt="無償ジェム">
+                    <p id="result-gems">250</p>
+                </li>
+                <li>
+                    <img src="../src/lvl_ticket.png" alt="チケット">
+                    <p id="result-tickets">100</p>
+                </li>
+                <li>
+                    <img src="../src/exp.png" alt="経験値">
+                    <p id="result-exp">200</p>
+                </li>
+            </ul>
         </main>
         <footer class="game-page-footer">
             <button type="button" id="pageBackButton" class="gray-button left">

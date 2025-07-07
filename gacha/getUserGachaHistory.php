@@ -9,7 +9,8 @@ function selectUserHistory($pdo, $user_id)
     // -- リストのカード情報
     $sql = "SELECT * FROM gacha_history LEFT JOIN gacha_info
         ON gacha_info.gacha_id = gacha_history.gacha_id
-        WHERE user_id = :user_id";
+        WHERE user_id = :user_id
+        ORDER BY gacha_history.gacha_day DESC";
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':user_id', $user_id);

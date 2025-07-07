@@ -70,8 +70,7 @@ $_SESSION['tickets'] = $userItems[array_search(4, array_column($userItems, 'item
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../gamemode-play.css">
     <script src="../../core/bgmPlay.js" defer></script>
-    <script src="../../core/pageBack.js" defer></script>
-    <script src="./battleOnePc.js" type="module" defer></script>
+    <script src="./battleOnePc.js" defer></script>
     <script src="https://kit.fontawesome.com/f8fcf0ba93.js" crossorigin="anonymous"></script>
     <title>ゲーム</title>
 </head>
@@ -80,56 +79,57 @@ $_SESSION['tickets'] = $userItems[array_search(4, array_column($userItems, 'item
     <div class="game-container">
         <main class="container-game">
             <div class="game-section" id="game-info-player1">
-                <div>
+                <div class="player-info">
                     <h2>プレイヤー１</h2>
-                    <div class="player-turn active" id="player1-turn"></div>
-                    <div class="player-hp" id="player1-hp"></div>
+                    <div class="player-info-block">
+                        <div id="player1-charge" class="charge-bar"></div>
+                        <div class="player-hp" id="player1-hp"></div>
+                    </div>
+                    <button id="end-game-p1" class="end-game-button">🏳️</button>
                 </div>
                 <div>
                     <div class="game-attack-buttons active" id="player1-buttons">
-                        <button type="button" class="game-button" id="player1-button-normal"><i class="fa-sharp fa-regular fa-burst" style="color: #ffffff;"></i></button>
-                        <button type="button" class="game-button" id="player1-button-charge"></button>
+                        <button type="button" class="game-button" id="player1-button-normal" onclick="window.game.prepareAction('normal')">ノーマル</button>
+                        <button type="button" class="game-button" id="player1-button-skill" onclick="window.game.prepareAction('skill')">スキル</button>
                     </div>
                 </div>
             </div>
 
-            <div class="card-table">
-                <div class="game-section" id="game-cards-player1">
-
+            <div class="table-section">
+                <div class="game-info">
+                    <div class="game-timer" id="game-timer"></div>
+                    <div class="turn-indicator" id="turn-info"></div>
+                    <div id="action-hint" class="hint-text"></div>
                 </div>
-                <div class="game-section" id="game-cards-player2">
+                <div class="card-table">
+                    <div class="card-section" id="game-cards-player1"></div>
+                    <div class="card-section" id="game-cards-player2"></div>
                 </div>
-            </div>
-
-            <div class="game-timer" id="game-timer">
-
             </div>
 
             <div class="game-section" id="game-info-player2">
-                <div>
-                    <h2>プレイヤー２</h2>
-                    <div class="player-turn" id="player2-turn"></div>
-                    <div class="player-hp" id="player2-hp"></div>
+                <div class="player-info">
+                    <h2>プレイヤー2</h2>
+                    <div class="player-info-block">
+                        <div id="player2-charge" class="charge-bar"></div>
+                        <div class="player-hp" id="player2-hp"></div>
+                    </div>
+                    <button id="end-game-p2" class="end-game-button">🏳️</button>
                 </div>
                 <div>
-                    <div class="game-attack-buttons" id="player2-buttons">
-                        <button type="button" class="game-button" id="player2-button-normal"><i class="fa-sharp fa-regular fa-burst" style="color: #ffffff;"></i></button>
-                        <button type="button" class="game-button" id="player2-button-charge"></button>
+                    <div id="player2-buttons" class="game-attack-buttons hidden">
+                        <button type="button" class="game-button" id="player2-button-normal" onclick="window.game.prepareAction('normal')">ノーマル</button>
+                        <button type="button" class="game-button" id="player2-button-skill" onclick="window.game.prepareAction('skill')">スキル</button>
                     </div>
                 </div>
             </div>
         </main>
-        <footer class="game-page-footer">
-            <div></div>
-            <button type="button" id="soundButton" class="gray-button right active">
-                <i class="fa-solid fa-volume-high" style="color: #000000;"></i>
-            </button>
-        </footer>
     </div>
-    <div id="modalPurchase" class="modal">
+    <div id="modalRules" class="modal">
         <div class="modal-content">
-            <h4 id="modal-shop-title">購入完了</h4>
-            <p id="modalPurchaseText"></p>
+            <h4 id="modal-shop-title">ゲームやり方</h4>
+            <h5 id="modal-shop-title">こちらからゲームの説明になります。</h5>
+            <p id="modalGameRulesText">ゲームがスタートします。</p>
             <button type="button" class="modalBtn Gray" id="closeModalPurchase">閉じる</button>
         </div>
     </div>

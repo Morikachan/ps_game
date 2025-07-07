@@ -2,7 +2,7 @@ const missionsContainer = document.querySelector("#missions-container");
 
 let activeMissionType = 1;
 
-setCompleteLogin(1, 0, 0);
+setCompleteLogin(1, 0);
 
 async function allMissionInfo() {
   const response = await fetch("./getAllDailyMissionsInfo.php", {
@@ -31,20 +31,13 @@ function returnItemImg(item) {
   return itemIconElement;
 }
 
-function returnButtonType(
-  isComplete,
-  isReceived,
-  missionId,
-  isDaily,
-  rewardId,
-  rewardAmount
-) {
+function returnButtonType(isComplete, isReceived, missionId, isDaily) {
   let buttonElement =
     isComplete == 0 || (isComplete == null && isReceived == null)
       ? `<button type="button" class="mission-button" data-missionId="${missionId}">未クリア</button>`
       : (isComplete == 1 && isReceived == null) || isReceived == 0
-      ? `<button type="button" class="mission-button clear" data-missionId="${missionId}" data-isDaily="${isDaily}" data-rewardId="${rewardId}" data-rewardAmount="${rewardAmount}">受け取る</button>`
-      : `<button type="button" class="mission-button received" data-missionId="${missionId} disabled">
+      ? `<button type="button" class="mission-button clear" data-missionId="${missionId}" data-isDaily="${isDaily}">受け取る</button>`
+      : `<button type="button" class="mission-button received" data-missionId="${missionId} data-isDaily="${isDaily} disabled">
             <img src="../src/completed.png" alt='ミッションクリア'>
         </button>`;
 
@@ -54,7 +47,6 @@ function returnButtonType(
 function updateMissions(missionsList) {
   let currentListElements = "";
   missionsList.forEach((mission) => {
-    console.log(mission);
     if (mission.is_group_mission != 1) {
       currentListElements += `<div class="mission-element">
             <div class="mission-element-reward">
@@ -66,9 +58,7 @@ function updateMissions(missionsList) {
               mission.is_complete,
               mission.is_received,
               mission.mission_id,
-              0,
-              mission.reward_item_id,
-              mission.reward_amount
+              0
             )}
         </div>`;
     } else {
@@ -82,9 +72,7 @@ function updateMissions(missionsList) {
               mission.all_cleared,
               mission.daily_received,
               mission.m_mission_daily_rewards_id,
-              1,
-              mission.group_reward_id,
-              mission.group_reward_amount
+              1
             )}
         </div>`;
     }
@@ -101,20 +89,17 @@ function addReceivingButtonListener() {
       button.addEventListener("click", (e) => {
         const missionId = e.currentTarget.dataset.missionid;
         const isDaily = e.currentTarget.dataset.isdaily;
-        const rewardId = e.currentTarget.dataset.rewardid;
-        const rewardAmount = e.currentTarget.dataset.rewardamount;
-        receiveReward(missionId, 1, isDaily, rewardId, rewardAmount);
+        receiveReward(missionId, isDaily);
       });
   });
 }
 
-async function setCompleteLogin(missionId, completed, isDaily) {
+async function setCompleteLogin(missionId, isDaily) {
   const params = {
     mission_id: Number(missionId),
-    is_complete: completed,
     is_daily: Number(isDaily),
+    mission_num: 1,
   };
-  console.log(params);
   const response = await fetch("./updateDailyMissionHistory.php", {
     method: "POST",
     headers: {
@@ -123,32 +108,21 @@ async function setCompleteLogin(missionId, completed, isDaily) {
     body: new URLSearchParams(params),
   });
   const responseData = await response.json();
-  console.log(responseData.status);
 
-  // if (responseData.status === true) {
-  //   setTimeout(() => {
-  //     window.location.reload();
-  //   }, 50);
-  // } else {
-  //   console.log("エラーが発生しました。もう一度やり直してください。");
-  // }
+  if (responseData.status === true) {
+    setTimeout(() => {
+      window.location.reload();
+    }, 50);
+  }
 }
 
-async function receiveReward(
-  missionId,
-  completed,
-  isDaily,
-  rewardId,
-  rewardAmount
-) {
+async function receiveReward(missionId, isDaily) {
   const params = {
     mission_id: Number(missionId),
-    is_complete: completed,
     is_daily: Number(isDaily),
-    reward_item_id: Number(rewardId),
-    reward_amount: Number(rewardAmount),
+    is_receiving: 1,
+    mission_num: 1,
   };
-  console.log(params);
   const response = await fetch("./updateDailyMissionHistory.php", {
     method: "POST",
     headers: {

@@ -31,11 +31,15 @@ function createCardList() {
           <img src="../src/card_skill_group_${
             currentCardData.card_skill_group
           }.png" alt="カードスキールグループアイコン" id="card-skill-group-icon">
+          <img src="../src/card_skill_target_${
+            currentCardData.card_skill_target
+          }.png" alt="カードスキールグループアイコン" id="card-skill-group-icon">
         </li>
         <li>カード名：${currentCardData.card_name}</li>
         <li>カードHP：${currentCardData.card_hp}</li>
         <li>カードタイプ：${currentCardData.card_type_name}</li>
         <li>カードスキールグループ：${currentCardData.card_skill_groupname}</li>
+        <li>スキールに必須チャージ数：${currentCardData.card_charge}</li>
         <li>スキール：${currentCardData.card_skill_text}</li>
         <li>加入の日付：${currentCardData.add_date.split(" ")[0]}</li>
         `;

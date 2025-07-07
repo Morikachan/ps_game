@@ -67,12 +67,30 @@ function renderCards(playerNum) {
   const container = document.getElementById(`cards${playerNum}`);
   container.innerHTML = "";
 
-  console.log(cardList);
   cardList.forEach((card) => {
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("card");
     cardDiv.style.backgroundImage = `url('../../src/cards/card_icons/card_icon_${card.card_id}.png')`;
     cardDiv.dataset.cardId = card.card_id;
+
+    let charge = "";
+    for (let i = 0; i < card.card_charge; i++) {
+      charge += `<div class="charge-full"></div>`;
+    }
+    let divCharge = document.createElement("div");
+    divCharge.innerHTML = charge;
+    divCharge.classList.add("card-charges");
+
+    let cardInfo = document.createElement("div");
+    cardInfo.classList.add("card-info");
+
+    const skillIcon = `<img src="../../src/card_skill_group_${card.card_skill_group}.png" class="card-skill-info" alt="attacker">`;
+    const targetIcon = `<img src="../../src/card_skill_target_${card.card_skill_target}.png" class="card-skill-info" alt="attacker">`;
+
+    cardInfo.innerHTML = `<div class="card-skill">${skillIcon} ${targetIcon}</div>`;
+
+    cardDiv.appendChild(divCharge);
+    cardDiv.appendChild(cardInfo);
     cardDiv.addEventListener("click", () => {
       const selected = playerSelections[playerNum].cards;
       const alreadySelected = selected.includes(card.card_id);
@@ -92,7 +110,6 @@ function renderCards(playerNum) {
       document.getElementById(`selected${playerNum}-count`).innerText =
         playerSelections[playerNum].cards.length;
 
-      console.log(selected);
       if (selected.length == 3) {
         document.querySelector(`#confirm${playerNum}`).disabled = false;
       } else {
@@ -132,6 +149,17 @@ function autoSelect(playerNum) {
 }
 
 function nextPage() {
-  localStorage.setItem("selectionResult", playerSelections);
-  window.location.href = "battle_page.php";
+  localStorage.setItem("selectionResult", JSON.stringify(playerSelections));
+
+  fetch("../add_items.php", {
+    method: "POST",
+  })
+    .then((response) => response.json())
+    .then((responseData) => {
+      if (responseData.status === true) {
+        window.location.href = "battle_page.php";
+      } else {
+        alert("失敗発生");
+      }
+    });
 }

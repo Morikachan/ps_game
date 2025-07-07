@@ -136,10 +136,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $todayFull = date("Y-m-d H:i:s");
     $user_id = $_SESSION['user']['user_id'];
     $missionsList = selectAllMissionsInfo($pdo, $user_id, $today);
-    foreach ($missionsList as $mission) {
-        if ($mission['is_group_mission'] && $mission['all_cleared'] && !$mission['is_received']) {
-            // updateDailyMissionHistoryComplete($pdo, $user_id, $mission['m_mission_daily_rewards_id'], 1, $todayFull);
-        }
-    }
     echo $missionsList ? json_encode(['status' => true, 'missionsList' => $missionsList]) : json_encode(['status' => false]);
 }

@@ -7,7 +7,7 @@
 
 .gamemode-container > div {
     padding: 12px;
-    height: 50%;
+    height: 51%;
     margin-bottom: 10px;
     width: 100%;
 }
@@ -27,6 +27,45 @@
   background-size: cover;
   width: 135px;
   height: 135px;
+}
+
+.card-charges {
+  right: -8.5%;
+  bottom: 35%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.charge-full {
+  width: 15px;
+  background: #ffee00;
+  padding: 12px 12px;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 50% 100%, 0% 50%, 50% 0);
+  position: relative;
+}
+
+.charge {
+  width: 15px;
+  background: rgba(255, 238, 0, 0.3);
+  padding: 15px 15px;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 50% 100%, 0% 50%, 50% 0);
+  position: relative;
+}
+
+.card-skill {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    justify-content: center;
+}
+
+.card-skill img {
+    width: 45px;
+    height: 45px;
 }
 
 .selected {
@@ -64,7 +103,7 @@
     width: 100%;
     overflow-y: auto;
     height: 100%;
-    gap: 1px 13px;
+    gap: 1px 12px;
 }
 
 .confirm-btn {

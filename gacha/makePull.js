@@ -90,11 +90,25 @@ function callPull(gachaId, gachaGemAmount, userGemRequired, pullNum) {
             JSON.stringify(gachaResult)
           );
         }
+        updateDailyMission(pullNum);
         window.location.href = "./gachaResult.php";
-      } else {
-        alert("失敗発生");
       }
     });
+}
+
+function updateDailyMission(pullNum) {
+  const params = {
+    mission_id: 3,
+    is_daily: 0,
+    mission_num: pullNum,
+  };
+  fetch("../missions/updateDailyMissionHistory.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams(params),
+  });
 }
 
 addPullButtonListener();

@@ -32,7 +32,6 @@ async function insertUsers() {
 }
 
 function formatLastLogin(datetime) {
-  console.log(datetime);
   const now = new Date();
   const past = new Date(datetime);
   const diff = Math.floor(Math.abs(now - past) / 1000);
@@ -40,7 +39,6 @@ function formatLastLogin(datetime) {
   if (datetime == null) {
     lastLoginFormattedStr = "最終ログイン: なし";
   } else {
-    console.log(diff);
     switch (true) {
       case diff < 60:
         lastLoginFormattedStr = "最終ログイン: 1分以内";

@@ -86,6 +86,16 @@ function selectGachaCardList($pdo, $gacha_id)
     }
 }
 
+function checkUserHasCard($pdo, $user_id, $card_id)
+{
+    $sql = "SELECT 1 FROM card_inventory WHERE user_id = :user_id AND card_id = :card_id LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->bindParam(':card_id', $card_id);
+    $stmt->execute();
+    return $stmt->fetchColumn() !== false;
+}
+
 function addCardToUserCardList($pdo, $user_id, $card_id, $add_date)
 {
     $sql = "INSERT INTO card_inventory (user_id, card_id, card_exp, add_date) VALUES (:user_id, :card_id, :card_exp, :add_date)";
@@ -134,8 +144,11 @@ function pullOne($cardsList, $pdo, $user_id, $pullDate)
     $cardIndex = array_search($randomCharacterId, array_column($cardsList, 'card_id'));
 
     if (is_numeric($cardIndex)) {
-        addCardToUserCardList($pdo, $user_id, $cardsList[$cardIndex]['card_id'], $pullDate);
-        return $cardsList[$cardIndex];
+        $card = $cardsList[$cardIndex];
+        $alreadyHas = checkUserHasCard($pdo, $user_id, $card['card_id']);
+        $card['is_new'] = !$alreadyHas;
+        addCardToUserCardList($pdo, $user_id, $card['card_id'], $pullDate);
+        return $card;
     } else {
         echo "No match found.";
     }

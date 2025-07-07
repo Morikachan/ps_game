@@ -22,7 +22,8 @@ function selectUserCards($pdo, $user_id)
     -- TODO カードレベル
     -- LEFT JOIN m_card_type 
     --     ON m_card_skill.card_skill_id = card_info.card_skill_id 
-        WHERE card_inventory.user_id = :user_id;";
+        WHERE card_inventory.user_id = :user_id
+        ORDER BY card_info.card_id;";
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':user_id', $user_id);

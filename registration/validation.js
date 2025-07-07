@@ -83,11 +83,6 @@ const validationPassword = (elementInfo) => {
   const regexSmallLetter = /(?=.*[a-z])/;
   const regexNumber = /(?=.*[0-9])/;
 
-  console.log(elementInfo.element.value);
-  console.log(!regex.test(elementInfo.element.value));
-  console.log(!regexLength.test(elementInfo.element.value));
-  console.log(!regexBigLetter.test(elementInfo.element.value));
-
   if (elementInfo.element.value == "") {
     userFieldsInput[elementInfo.name] = null;
     elementInfo.elementError.style.display = "inline-block";

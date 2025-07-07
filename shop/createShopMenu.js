@@ -84,13 +84,11 @@ function returnItemImg(item) {
 }
 
 function updateShopMenu(shopList) {
-  console.log(activeShopId);
   let currentListElements = "";
   if (activeShopId == 1) {
     const gems = getGemsInfo(shopList);
 
     gems.forEach((element) => {
-      //   console.log(element);
       currentListElements += `<div class="shop-element">
                 <img src="../src/gem_img.png" alt="ジェム画像">
                 <p id='item_amount'>${element.m_item_amount}個</p>
@@ -119,7 +117,6 @@ function updateShopMenu(shopList) {
           element.cost_amount + "" + returnItemImg(element.cost_m_item_id)
         }</button>
                     </div>`;
-        console.log(element);
       } else {
         let packItems = "";
         element.forEach(
@@ -154,9 +151,7 @@ function addBuyButtonListener() {
   buyButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
       // e.currentTarget.classList.add("active");
-      console.log(e.currentTarget);
       const chosePackId = e.currentTarget.dataset.packid;
-      console.log(chosePackId);
       createPurchase(chosePackId);
     });
   });

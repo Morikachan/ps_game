@@ -1,8 +1,268 @@
 .container-game {
-    background-color: rgb(255, 255, 255);
-    position: relative;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    margin: auto;
+  background-color: #FFF4F4;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+h2 {
+  color: #ffffff;
+}
+
+.table-section {
+  display: flex;
+  flex-basis: 85%;
+  height: 100%;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 30px;
+}
+.card-table {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1000px;
+  align-self: center;
+  background-image: url('../src/table.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.player-info {
+  display: flex;
+  gap: 10px;
+}
+
+.player-info-block {
+  display: block;
+  flex-direction: column;
+  width: 200px;
+  justify-content: center;
+}
+
+.end-game-button {
+  padding: 10px;
+  margin-left: 5px;
+  background-color: #b3b3b3;
+  color: #ffffff;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 0 10px rgb(100, 100, 100);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+}
+
+.game-button {
+  padding: 10px;
+  margin-left: 5px;
+  background-color: #FF8989;
+  color: #ffffff;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 0 10px rgb(255, 108, 108);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+}
+
+.end-game-button:hover, .game-button:hover {
+  transform: scale(1.05);
+  transition: all 250ms ease-in-out;
+}
+
+.game-section {
+  flex-basis: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #D967FF;
+}
+
+.charge-bar {
+  display: flex;
+  gap: 4px;
+  margin: 4px 0;
+}
+
+.card-section {
+  flex-basis: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  position: relative;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.card-image {
+  width: 180px;
+  height: auto;
+  margin-bottom: 5px;
+}
+
+.card-charges {
+  right: -6.5%;
+  bottom: 35%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.charge-full {
+  width: 15px;
+  background: #ffee00;
+  padding: 15px 15px;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 50% 100%, 0% 50%, 50% 0);
+  position: relative;
+}
+
+.charge {
+  width: 15px;
+  background: rgba(255, 238, 0, 0.3);
+  padding: 15px 15px;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 50% 100%, 0% 50%, 50% 0);
+  position: relative;
+}
+
+.card-skill-info {
+  width: 40px;
+  height: 40px;
+}
+
+.hidden {
+  display: none;
+}
+
+.turn-indicator {
+  text-align: center;
+  margin: 10px;
+}
+
+.selected-card {
+  box-shadow: 0 0 10px blue;
+  border-radius: 12px;
+}
+
+.selected-target {
+  box-shadow: 0 0 10px red;
+  border-radius: 12px;
+}
+
+.button-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.selectable-target {
+  outline: 3px dashed gold;
+  box-shadow: 0 0 10px gold;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.flash-hit {
+  animation: hitFlash 0.3s ease-in-out;
+  border-radius: 12px;
+}
+
+.dead {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: auto;
+  filter: grayscale(100%);
+}
+
+.hp-changed {
+  transition: color 0.3s, transform 0.3s;
+  transform: scale(1.05);
+  color: gold;
+}
+
+.floating-number {
+  position: absolute;
+  font-size: 18px;
+  font-weight: bold;
+  color: gold;
+  animation: floatNumber 0.8s ease-out forwards;
+  pointer-events: none;
+  z-index: 10;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -10px;
+}
+
+.glow-red {
+  box-shadow: 0 0 10px 4px red;
+  border-radius: 12px;
+}
+
+.glow-green {
+  box-shadow: 0 0 10px 4px limegreen;
+  border-radius: 12px;
+}
+
+@keyframes floatNumber {
+  0% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -30px); }
+}
+
+@keyframes hitFlash {
+  0% { box-shadow: 0 0 10px red; transform: scale(1.05); }
+  100% { box-shadow: none; transform: scale(1); }
+}
+
+/* result */
+
+.container-result-small {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 8px;
+  width: 40%;
+  height: 55%;
+  margin: auto;
+  gap: 10px;
+}
+
+.result-title {
+  color: #000000;
+}
+
+.result-items {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.result-items li {
+  list-style: none;
+  margin: 0 20px;
+}
+
+.result-items img {
+  width: 60px;
+  height: 55px;
+}
+
+#winner-name {
+  color: #FF8989;
+  font-weight: bold;
 }
