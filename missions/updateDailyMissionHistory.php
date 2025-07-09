@@ -131,7 +131,7 @@ function updateMissionHistoryComplete($pdo, $user_id, $mission_id, $is_complete,
             SELECT 1 FROM mission_history
             WHERE user_id = :user_id1
             AND mission_id = :mission_id1
-            AND DATE_FORMAT(add_date, '%Y-%m-%d') = DATE_FORMAT(:today, '%Y-%m-%d')
+            AND DATE_FORMAT(add_date, '%Y-%m-%d') = DATE_FORMAT(:today2, '%Y-%m-%d')
             AND is_complete = 1 
         );";
 
@@ -144,7 +144,7 @@ function updateMissionHistoryComplete($pdo, $user_id, $mission_id, $is_complete,
         $smtp->bindParam(':add_num', $add_num);
         $smtp->bindParam(':user_id1', $user_id);
         $smtp->bindParam(':mission_id1', $mission_id);
-        $smtp->bindParam(':today', $today);
+        $smtp->bindParam(':today2', $today);
         return $smtp->execute();
     } catch (PDOException $e) {
         echo $e->getMessage();

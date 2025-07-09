@@ -78,35 +78,6 @@ $_SESSION['tickets'] = $userItems[array_search(4, array_column($userItems, 'item
 <body>
     <div class="game-container">
         <main class="container-game">
-            <div class="game-section" id="game-info-player1">
-                <div class="player-info">
-                    <h2>プレイヤー１</h2>
-                    <div class="player-info-block">
-                        <div id="player1-charge" class="charge-bar"></div>
-                        <div class="player-hp" id="player1-hp"></div>
-                    </div>
-                    <button id="end-game-p1" class="end-game-button">🏳️</button>
-                </div>
-                <div>
-                    <div class="game-attack-buttons active" id="player1-buttons">
-                        <button type="button" class="game-button" id="player1-button-normal" onclick="window.game.prepareAction('normal')">ノーマル</button>
-                        <button type="button" class="game-button" id="player1-button-skill" onclick="window.game.prepareAction('skill')">スキル</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table-section">
-                <div class="game-info">
-                    <div class="game-timer" id="game-timer"></div>
-                    <div class="turn-indicator" id="turn-info"></div>
-                    <div id="action-hint" class="hint-text"></div>
-                </div>
-                <div class="card-table">
-                    <div class="card-section" id="game-cards-player1"></div>
-                    <div class="card-section" id="game-cards-player2"></div>
-                </div>
-            </div>
-
             <div class="game-section" id="game-info-player2">
                 <div class="player-info">
                     <h2>プレイヤー2</h2>
@@ -120,6 +91,35 @@ $_SESSION['tickets'] = $userItems[array_search(4, array_column($userItems, 'item
                     <div id="player2-buttons" class="game-attack-buttons hidden">
                         <button type="button" class="game-button" id="player2-button-normal" onclick="window.game.prepareAction('normal')">ノーマル</button>
                         <button type="button" class="game-button" id="player2-button-skill" onclick="window.game.prepareAction('skill')">スキル</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-section">
+                <div class="game-info">
+                    <div class="game-timer" id="game-timer"></div>
+                    <div class="turn-indicator" id="turn-info"></div>
+                    <div id="action-hint" class="hint-text"></div>
+                </div>
+                <div class="card-table">
+                    <div class="card-section" id="game-cards-player2"></div>
+                    <div class="card-section" id="game-cards-player1"></div>
+                </div>
+            </div>
+
+            <div class="game-section" id="game-info-player1">
+                <div class="player-info">
+                    <h2>プレイヤー１</h2>
+                    <div class="player-info-block">
+                        <div id="player1-charge" class="charge-bar"></div>
+                        <div class="player-hp" id="player1-hp"></div>
+                    </div>
+                    <button id="end-game-p1" class="end-game-button">🏳️</button>
+                </div>
+                <div>
+                    <div class="game-attack-buttons active" id="player1-buttons">
+                        <button type="button" class="game-button" id="player1-button-normal" onclick="window.game.prepareAction('normal')">ノーマル</button>
+                        <button type="button" class="game-button" id="player1-button-skill" onclick="window.game.prepareAction('skill')">スキル</button>
                     </div>
                 </div>
             </div>

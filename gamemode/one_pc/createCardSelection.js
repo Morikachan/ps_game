@@ -150,16 +150,5 @@ function autoSelect(playerNum) {
 
 function nextPage() {
   localStorage.setItem("selectionResult", JSON.stringify(playerSelections));
-
-  fetch("../add_items.php", {
-    method: "POST",
-  })
-    .then((response) => response.json())
-    .then((responseData) => {
-      if (responseData.status === true) {
-        window.location.href = "battle_page.php";
-      } else {
-        alert("失敗発生");
-      }
-    });
+  window.location.href = "battle_page.php";
 }

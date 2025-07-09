@@ -268,7 +268,17 @@ class Game {
     const winner = this.players[1 - playerIndex];
 
     localStorage.setItem("battleWinner", winner.name);
-    window.location.href = "../battle_result.php";
+    fetch("../add_items.php", {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        if (responseData.status === true) {
+          window.location.href = "../battle_result.php";
+        } else {
+          console.log("失敗発生");
+        }
+      });
   }
 
   flashCard(targetCard) {
@@ -521,7 +531,17 @@ class Game {
       if (this.players[i].totalHp === 0) {
         const winner = this.players[1 - i];
         localStorage.setItem("battleWinner", winner.name);
-        window.location.href = "battle_result.php";
+        fetch("../add_items.php", {
+          method: "POST",
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            if (responseData.status === true) {
+              window.location.href = "../battle_result.php";
+            } else {
+              console.log("失敗発生");
+            }
+          });
         return true;
       }
     }
